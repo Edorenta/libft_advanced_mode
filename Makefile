@@ -18,7 +18,7 @@ FLAGS		= -Wall -Werror -Wextra -g -I$(I_PATH) #-Wpedantic
 CC			= gcc $(FLAGS)
 SRC_SUBDIRS	= $(shell find $(SRCS_PATH) -type d)
 SRCS		= $(shell find $(SRCS_PATH) -type f -name "*.c")
-OBJS		= $(SRCS:.c=.o)
+OBJS		= $(shell find $(SRCS_PATH) -type f -name "*.o")
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
 				sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 OBJS_TRACKER= .objs_exist
@@ -47,6 +47,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"all binaries compiled\t"$(OK)'\n'
+	@cp $(OBJS) $(OBJS_PATH)
 	@printf "[$(NAME_P)] running\t\t$(WHITE)ar rc $@$(WHITE)"
 	@ar rc $(NAME) $(OBJS)
 	@printf '\t\t'$(OK)'\n'
@@ -56,12 +57,20 @@ $(NAME): $(OBJS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
-$(OBJS)%.o: $(SRCS)%.c | $(OBJS_TRACKER)
-	@printf "\r$(EOLCLR)[$(NAME_P)] compiling\t$(BOLD)$(YELLOW)$<$(WHITE)"
-	@$(CC) -o $@ -c $<
-
-%.c:
-	@printf "[$(NAME_P)] $(RED)missing file : $@$(WHITE)\n"
+$(OBJS): $(SRCS) | $(OBJS_TRACKER)
+	@$(MAKE) -C srcs/array_container/
+	@$(MAKE) -C srcs/list_container/
+	@$(MAKE) -C srcs/string_container/
+	@$(MAKE) -C srcs/char_class/
+	@$(MAKE) -C srcs/maths_op/
+	@$(MAKE) -C srcs/memory_mgmt/
+	@$(MAKE) -C srcs/string_mgmt/
+	@$(MAKE) -C srcs/stream_mgmt/
+	@$(MAKE) -C srcs/table_mgmt/
+	@$(MAKE) -C srcs/output_mgmt/
+	@$(MAKE) -C srcs/tree_nodes/
+	@$(MAKE) -C srcs/unicode/
+	@$(MAKE) -C srcs/parsing/
 
 $(OBJS_TRACKER):
 	@mkdir -p $(OBJS_PATH)
@@ -71,11 +80,37 @@ clean:
 	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
 	@rm -rf $(OBJS_PATH)
 	@rm -f $(OBJS_TRACKER)
+	@$(MAKE) -C srcs/array_container/ clean
+	@$(MAKE) -C srcs/list_container/ clean
+	@$(MAKE) -C srcs/string_container/ clean
+	@$(MAKE) -C srcs/char_class/ clean
+	@$(MAKE) -C srcs/maths_op/ clean
+	@$(MAKE) -C srcs/memory_mgmt/ clean
+	@$(MAKE) -C srcs/string_mgmt/ clean
+	@$(MAKE) -C srcs/stream_mgmt/ clean
+	@$(MAKE) -C srcs/table_mgmt/ clean
+	@$(MAKE) -C srcs/output_mgmt/ clean
+	@$(MAKE) -C srcs/tree_nodes/ clean
+	@$(MAKE) -C srcs/unicode/ clean
+	@$(MAKE) -C srcs/parsing/ clean
 	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
 	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
 	@rm -f $(NAME)
+	@$(MAKE) -C srcs/array_container/ fclean
+	@$(MAKE) -C srcs/list_container/ fclean
+	@$(MAKE) -C srcs/string_container/ fclean
+	@$(MAKE) -C srcs/char_class/ fclean
+	@$(MAKE) -C srcs/maths_op/ fclean
+	@$(MAKE) -C srcs/memory_mgmt/ fclean
+	@$(MAKE) -C srcs/string_mgmt/ fclean
+	@$(MAKE) -C srcs/stream_mgmt/ fclean
+	@$(MAKE) -C srcs/table_mgmt/ fclean
+	@$(MAKE) -C srcs/output_mgmt/ fclean
+	@$(MAKE) -C srcs/tree_nodes/ fclean
+	@$(MAKE) -C srcs/unicode/ fclean
+	@$(MAKE) -C srcs/parsing/ fclean
 	@printf '\t\t\t'$(OK)'\n'
 
 re: fclean all
