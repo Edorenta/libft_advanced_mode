@@ -22,7 +22,7 @@ OBJS		= $(shell find $(SRCS_PATH) -type f -name "*.o")
 NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
 				sed "s/\.[acoh]$///g" | tr '\n' ' ' | sed "s/ $///g")
 OBJS_TRACKER= .objs_exist
-MAKEFLAGS	+=-j
+#MAKEFLAGS	+=-j
 
 #color
 YELLOW		= "\\033[33m"
@@ -44,7 +44,7 @@ OK			= " $(CYAN)$(CHECK)$(WHITE)"
 # ONLY FOR LONG TERM IMPROVEMENT
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS_TRACKER)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(YELLOW)$(BOLD)"\
 	"all binaries compiled\t"$(OK)'\n'
 	@cp $(OBJS) $(OBJS_PATH)
@@ -57,7 +57,9 @@ $(NAME): $(OBJS)
 	@printf "\r$(EOLCLR)[$(NAME_P)] >>>>>>>>>>>>>>>\t$(GREEN)$(BOLD)"\
 	"build successful\t"$(OK)'\n'
 
-$(OBJS): $(SRCS) | $(OBJS_TRACKER)
+$(OBJS_TRACKER): $(SRCS) #| $(OBJS)
+	@mkdir -p $(OBJS_PATH)
+	@touch $(OBJS_TRACKER)
 	@$(MAKE) -C srcs/array_container/
 	@$(MAKE) -C srcs/list_container/
 	@$(MAKE) -C srcs/string_container/
@@ -73,13 +75,9 @@ $(OBJS): $(SRCS) | $(OBJS_TRACKER)
 	@$(MAKE) -C srcs/parsing/
 
 $(OBJS_TRACKER):
-	@mkdir -p $(OBJS_PATH)
-	@touch $(OBJS_TRACKER)
 
 clean:
 	@printf "[$(NAME_P)] cleaning\t$(PINK)all obj file$(WHITE)"
-	@rm -rf $(OBJS_PATH)
-	@rm -f $(OBJS_TRACKER)
 	@$(MAKE) -C srcs/array_container/ clean
 	@$(MAKE) -C srcs/list_container/ clean
 	@$(MAKE) -C srcs/string_container/ clean
@@ -93,11 +91,12 @@ clean:
 	@$(MAKE) -C srcs/tree_nodes/ clean
 	@$(MAKE) -C srcs/unicode/ clean
 	@$(MAKE) -C srcs/parsing/ clean
+	@rm -rf $(OBJS_PATH)
+	@rm -f $(OBJS_TRACKER)
 	@printf '\t\t'$(OK)'\n'
 
 fclean: clean
 	@printf "[$(NAME_P)] erasing\t\t$(PINK)$(NAME)$(WHITE)"
-	@rm -f $(NAME)
 	@$(MAKE) -C srcs/array_container/ fclean
 	@$(MAKE) -C srcs/list_container/ fclean
 	@$(MAKE) -C srcs/string_container/ fclean
@@ -111,6 +110,7 @@ fclean: clean
 	@$(MAKE) -C srcs/tree_nodes/ fclean
 	@$(MAKE) -C srcs/unicode/ fclean
 	@$(MAKE) -C srcs/parsing/ fclean
+	@rm -f $(NAME)
 	@printf '\t\t\t'$(OK)'\n'
 
 re: fclean all
