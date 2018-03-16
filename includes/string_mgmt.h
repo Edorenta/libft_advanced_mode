@@ -24,7 +24,7 @@ char	*ft_strnew(size_t size);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);
 char	*ft_strtrim(const char *str);
-int		contains(const char *str, char c);
+int		is_in(char i, char const *str);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strcat(char *s1, const char *s2);

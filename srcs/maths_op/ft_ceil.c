@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_ceil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 20:31:16 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/16 18:58:47 by pde-rent         ###   ########.fr       */
+/*   Created: 2017/11/09 20:29:41 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/03/16 18:58:21 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_sqrt(int nb)
+int			ft_iceil(double n)
 {
-	int	i;
+	if (((double)((int)n) == n))
+		return (n);
+	return ((int)n + 1);
+}
 
-	i = 0;
-	if (nb < 0)
-		return (0);
-	while (i * i < nb)
-		i++;
-	return ((i * i == nb) ? i : 0);
+long		ft_lceil(double n)
+{
+	if (((double)((long)n) == n))
+		return (n);
+	return ((long)n + 1);
+}
+
+long long	ft_llceil(double n)
+{
+	if (((double)((long long)n) == n))
+		return (n);
+	return ((long long)n + 1);
 }

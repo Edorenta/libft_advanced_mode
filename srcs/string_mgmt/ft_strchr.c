@@ -17,11 +17,11 @@ char	*ft_strchr(const char *str, int c)
 	return (*str == c ? (char *)str : (void *)0);
 }
 
-int		contains(const char *str, char c)
+int		is_in(char i, char const *str)
 {
-	const char	*p = str;
+	char const	*p = str;
 
-	while (*p != '\0' && *p != c)
+	while (*p != '\0' && *p != i)
 		p++;
 	return (*p == '\0' ? -1 : p - str);
 }

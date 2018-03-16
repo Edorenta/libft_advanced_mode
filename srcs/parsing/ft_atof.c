@@ -12,51 +12,32 @@
 
 #include "maths_op.h"
 #include "char_class.h"
-#ifndef STDINT_H
-# include <stdint.h>
-#endif
 
-static	double	floating_part(const char *str, int i)
+double	ft_atof(const char *str)
 {
-	uint8_t	n;
-	double	f;
+	long long	nb;
+	int			sign;
+	int			digits;
 
-	n = 0;
-	f = 0.0;
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	nb = 0;
+	if (!str)
+		return (0);
+	while (ft_isspace(*str))
+		str++;
+	sign = (*str == '-') ? -1 : 1;
+	digits = (*str == '.') ? 1 : 0;
+	str = ((*str == '.' || *str == '-' || *str == '+') ? ++str : str);
+	while (ft_isdigit(*str))
 	{
-		f = (f * 10.0) + (str[i] - '0');
-		++i;
-		++n;
+		digits = (digits ? ++digits : digits);
+		nb = nb * 10 + (*str++ - 48);
+		if (*str == '.')
+		{
+			if (digits)
+				break ;
+			digits = 1;
+			str++;
+		}
 	}
-	return (f / ft_dpow(10.0, n));
-}
-
-double			ft_atof(const char *str)
-{
-	double		res;
-	int8_t		neg;
-	const char	*ptr;
-
-	ptr = str;
-	neg = 0;
-	res = 0.0;
-	while (ft_isspace(*ptr))
-		ptr++;
-	if (*ptr == '-')
-	{
-		neg = 1;
-		++ptr;
-	}
-	while (*ptr >= '0' && *ptr <= '9')
-	{
-		res = (res * 10.0) + (*ptr - '0');
-		++ptr;
-	}
-	if (*ptr == '.')
-	{
-		ptr++;
-		res += floating_part(str, (int)(ptr - str));
-	}
-	return (neg ? -res : res);
+	return (((double)sign * ((double)nb / (double)ft_llpow(10, digits - 1))));
 }

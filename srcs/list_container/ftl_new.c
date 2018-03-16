@@ -20,12 +20,12 @@ void	ftl_init(t_list *l, size_t type_size)
 
 t_list	*ftl_alloc(size_t type_size)
 {
-	t_list *ans;
+	t_list *ret;
 
-	if (!(ans = (t_list *)malloc(sizeof(t_list))))
+	if (!(ret = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
-	*ans = (t_list){{(t_node *)ans, (t_node *)ans}, type_size, 0};
-	return (ans);
+	*ret = (t_list){{(t_node *)ret, (t_node *)ret}, type_size, 0};
+	return (ret);
 }
 
 int		ftl_cpy(t_list *dst, t_list const *src)

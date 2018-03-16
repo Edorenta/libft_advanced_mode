@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gcd.c                                           :+:      :+:    :+:   */
+/*   ft_sin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 18:11:58 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/16 18:58:35 by pde-rent         ###   ########.fr       */
+/*   Created: 2017/11/21 18:59:21 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/03/16 18:58:43 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_gcd(int x, int y)
+#include "maths_op.h"
+
+double	ft_cos(double x)
 {
-	return ((x == 0) ? y : ft_gcd(y % x, x));
+	double	y;
+	double	s;
+	int		i;
+
+	y = x;
+	s = -1.0;
+	i = 3;
+	while (i < 100)
+	{
+		y += s * (ft_dpow(x, i) / ft_dfact(i));
+		s *= -1;
+		i += 2;
+	}
+	return (y);
 }

@@ -14,7 +14,7 @@
 
 int		ft_atoi(const char *str)
 {
-	int		res;
+	int		nb;
 	int		sign;
 
 	while (ft_isspace(*str))
@@ -22,8 +22,8 @@ int		ft_atoi(const char *str)
 	sign = *str == '-' ? -1 : 1;
 	if (*str == '+' || *str == '-')
 		++str;
-	res = 0;
+	nb = 0;
 	while (ft_isdigit(*str))
-		res = 10 * res + sign * (*str++ - '0');
-	return (res);
+		nb = 10 * nb + sign * (*str++ - '0');
+	return (nb);
 }

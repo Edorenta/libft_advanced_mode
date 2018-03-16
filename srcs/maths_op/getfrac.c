@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gcd.c                                           :+:      :+:    :+:   */
+/*   getfrac.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-rent <pde-rent@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pde-rent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/30 18:11:58 by pde-rent          #+#    #+#             */
-/*   Updated: 2018/03/16 18:58:35 by pde-rent         ###   ########.fr       */
+/*   Created: 2017/11/16 01:10:27 by pde-rent          #+#    #+#             */
+/*   Updated: 2018/03/16 18:58:57 by pde-rent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_gcd(int x, int y)
+#include "maths_op.h"
+
+double		ft_getfrac(double x)
 {
-	return ((x == 0) ? y : ft_gcd(y % x, x));
+	return (x - (double)ft_llfloor(x));
+}
+
+double		ft_getmantissa(double x)
+{
+	return (ft_getfrac(x));
 }

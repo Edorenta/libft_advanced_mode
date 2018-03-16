@@ -25,5 +25,6 @@ int		ft_atoi(const char *str);
 double	ft_atof(const char *str);
 char	*ft_itoa_base(int n, uint8_t base);
 int		ft_atoi_base(const char *str, uint8_t base);
+double	ft_atof_base(const char *str, uint8_t base);
 
 #endif
