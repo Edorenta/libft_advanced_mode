@@ -15,8 +15,8 @@ SRCS_PATH	= srcs/
 OBJS_PATH	= objs/
 I_PATH		= -I include
 FLAGS		= -Wall -Wextra -g $(I_PATH) #-Wpedantic
-CC			= clang $(FLAGS)
-SRCS_SUBDIRS= $(shell find $(SRCS_PATH) -type d)
+CC		= clang $(FLAGS)
+SRCS_SUBDIRS	= $(shell find $(SRCS_PATH) -type d)
 SRCS_FILES	= $(shell find $(SRCS_PATH)/* -type f -name "*.c"\
 				 -exec basename {} \;)
 OBJS_FILES	= $(SRCS_FILES:.c=.o)
@@ -28,7 +28,7 @@ NAME_P		= $(shell echo $(NAME) | tr ' ' '\n' |\
 #color
 YELLOW		= "\\033[33m"
 BLUE		= "\\033[34m"
-RED			= "\\033[31m"
+RED		= "\\033[31m"
 WHITE		= "\\033[0m"
 CYAN		= "\\033[36m"
 GREEN		= "\\033[32m"
