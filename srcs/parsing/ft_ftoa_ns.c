@@ -35,7 +35,7 @@ static inline void	ftoa_ns_init(t_ftoa_ns *ftoa, double n,
 							char *tmp, char *ptr)
 {
 	ft_strcpy(tmp, ft_ftoa_base(n, 10, MAX_ACCURACY));
-	ptr[0] = ft_strpbrk(tmp[0], "123456789");
+	ptr[0] = ft_strpbrk(&tmp[0], "123456789");
 	ftoa->neg = n < 0 ? '-' : '\0';
 	ftoa->exp = ft_getexp(n);
 }
@@ -47,8 +47,6 @@ char				*ft_ftoa_ns(double n)
 	char		*ptr[2];
 
 	ftoa_ns_init(&ftoa, n, &(tmp[0][0]), ptr[0]);
-	dprintf(1, "exp: %d\n", ftoa.exp);
-	dprintf(1, "tmp: %s\n", tmp[0]);
 	ptr[1] = tmp[1];
 	if (ftoa.neg)
 	{
