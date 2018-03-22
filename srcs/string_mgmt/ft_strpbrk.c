@@ -18,7 +18,7 @@ char	*ft_strpbrk(const char *str, const char *lst)
 	int		max;
 	char	match;
 
-	max =  = ft_strlen(lst);
+	max = ft_strlen(lst);
 	match = 0;
 	while (*str && !match && (i = -1))
 	{
